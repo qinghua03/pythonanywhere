@@ -80,4 +80,4 @@ def reentrenar():
     return str(model)
 
 
-app.run() 
+#app.run() 
