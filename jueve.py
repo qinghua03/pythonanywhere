@@ -27,7 +27,7 @@ def get_all():
     return jsonify(result)
 
 
-@app.route("/prediccion/", methods=['GET'])
+@app.route("/predict", methods=['GET'])
 def predict():
     model = pickle.load(open('data/advertising_model','rb'))
 
@@ -41,7 +41,7 @@ def predict():
         prediction = model.predict([[tv,radio,newspaper]])
         return "The prediction of sales investing that amount of money in TV, radio and newspaper is: " + str(round(prediction[0],2)) + 'k €'
 
-@app.route("/almancen/", methods=['POST','GET'])
+@app.route("/ingest_data", methods=['POST','GET'])
 def ingest_data():
     
     tv = float(request.args["tv"])
@@ -57,7 +57,7 @@ def ingest_data():
     connection.close()
     return ("se ha añadido nuevos datos: " + str(tv) + " " + str(radio)+ " "+ str(newspaper)+ " " + str(sales))
 
-@app.route("/reentrenar/", methods=['POST','GET'])
+@app.route("/retrain", methods=['POST','GET'])
 def retrain():
     model = pickle.load(open('advertising_model','rb'))
     tv = float(request.args["tv"])
