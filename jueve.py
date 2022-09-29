@@ -29,7 +29,7 @@ def get_all():
 
 @app.route("/predict", methods=['GET'])
 def predict():
-    model = pickle.load(open('data/advertising_model','rb'))
+    model = pickle.load(open('advertising_model','rb'))
 
     tv = request.args.get('tv', None)
     radio = request.args.get('radio', None)
