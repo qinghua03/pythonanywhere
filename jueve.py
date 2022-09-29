@@ -42,9 +42,9 @@ def predict():
         return "The prediction of sales investing that amount of money in TV, radio and newspaper is: " + str(round(prediction[0],2)) + 'k €'
 
 @app.route("/almancen/", methods=['POST','GET'])
-def nuevo_registro():
+def ingest_data():
     
-    TV = float(request.args["TV"])
+    tv = float(request.args["TV"])
     radio = float(request.args["radio"])
     newspaper = float(request.args["newspaper"])
     sales = float(request.args["sales"])
@@ -52,21 +52,21 @@ def nuevo_registro():
     connection = sqlite3.connect('database.db')
     cursor = connection.cursor()
     select_books = "INSERT INTO database VALUES (?,?,?,?)"
-    result = cursor.execute(select_books, (TV,radio,newspaper,sales)).fetchall()
+    result = cursor.execute(select_books, (tv,radio,newspaper,sales)).fetchall()
     connection.commit() 
     connection.close()
-    return ("se ha añadido nuevos datos: " + str(TV) + " " + str(radio)+ " "+ str(newspaper)+ " " + str(sales))
+    return ("se ha añadido nuevos datos: " + str(tv) + " " + str(radio)+ " "+ str(newspaper)+ " " + str(sales))
 
 @app.route("/reentrenar/", methods=['POST','GET'])
-def reentrenar():
+def retrain():
     model = pickle.load(open('advertising_model','rb'))
-    TV = float(request.args["TV"])
+    tv = float(request.args["TV"])
     radio = float(request.args["radio"])
     newspaper = float(request.args["newspaper"])
     sales = float(request.args["sales"])
 
     X = []
-    X.append(TV)
+    X.append(tv)
     X.append(radio) 
     X.append(newspaper)
     X = np.array(X).reshape(1,-1)
