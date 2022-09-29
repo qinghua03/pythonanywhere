@@ -44,7 +44,7 @@ def predict():
 @app.route("/almancen/", methods=['POST','GET'])
 def ingest_data():
     
-    tv = float(request.args["TV"])
+    tv = float(request.args["tv"])
     radio = float(request.args["radio"])
     newspaper = float(request.args["newspaper"])
     sales = float(request.args["sales"])
@@ -60,7 +60,7 @@ def ingest_data():
 @app.route("/reentrenar/", methods=['POST','GET'])
 def retrain():
     model = pickle.load(open('advertising_model','rb'))
-    tv = float(request.args["TV"])
+    tv = float(request.args["tv"])
     radio = float(request.args["radio"])
     newspaper = float(request.args["newspaper"])
     sales = float(request.args["sales"])
